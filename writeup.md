@@ -1,7 +1,7 @@
 # Writeup
 
 This is a Return-Oriented Programming Challenge (ROP) in assemply. The goal is to execute the function `win()`, while putting the value "3" in rax, and the value "2" in rbx.
-For this challenge, you are provided with a binary called "rop" where the challenge takes place, and an auxiliary binary called "hex2raw" which converts a hex string to raw bytes.
+For this challenge, you are provided with a binary called "rop" where the challenge takes place, and an auxiliary binary called "hex2raw" which converts a hex string to raw bytes. Credit goes to the creators of the CMU attack lab for the creation of the hex2raw binary.
 
 The binary was compiled as follows: gcc -o rop rop.c -fno-stack-protector -no-pie -z execstack
 
