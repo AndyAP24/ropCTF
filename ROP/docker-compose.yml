@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+
+  rop:
+    container_name: rop
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "1337:1337"
+
+    networks:
+      - ctf
+    
+    entrypoint: /bin/bash
+    tty: true
+    stdin_open: true
+
+
+networks:
+  ctf:
+    driver: bridge
