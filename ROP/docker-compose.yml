@@ -9,7 +9,5 @@ services:
       - seccomp:unconfined
     ports:
       - "2222:22"
-    tty: true
-    stdin_open: true
 
   
