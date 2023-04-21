@@ -42,8 +42,16 @@ FROM ubuntu:latest
 
     RUN chmod 777 /app
 
+    #Give everyone the permissions to execute hex2raw
+    RUN chmod 777 /app/hex2raw
+
+    
+
     #Make it so that you cannot ssh in as root
     RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
+
+    #Make it so that you are not prompted for a password when sshing in as labuser
+    RUN echo 'labuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 
     ENTRYPOINT service ssh start && tail -f /dev/null
