@@ -26,6 +26,8 @@ description: |
   "ssh -L 4444:rop:22 -p 56151 your_user@cs561.cs.umass.edu" and then "ssh labuser@localhost -p 4444"
 
   The password is labuser.
+
+  The challenge takes place in /app, so the first step should be "cd /app"
   
   Good luck!
 value: 200
