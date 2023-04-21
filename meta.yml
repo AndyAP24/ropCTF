@@ -22,6 +22,11 @@ description: |
 
   If you try to cheat, say by artifically injecting values into the registers with gdb and skipping some checks, your flag will not be the correct one, so be careful.
 
+  Connection:
+  "ssh -L 4444:rop:22 -p 56151 your_user@cs561.cs.umass.edu" and then "ssh labuser@localhost -p 4444"
+
+  The password is labuser.
+  
   Good luck!
 value: 200
 category: Assembly
