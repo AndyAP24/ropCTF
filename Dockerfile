@@ -30,43 +30,23 @@ FROM ubuntu:latest
         net-tools \
         && rm -rf /var/lib/apt/lists/*
 
-
-    #Make a user with credentials labuser:labuser
-    RUN useradd -m labuser
-    RUN echo "labuser:labuser" | chpasswd
-
-    RUN service ssh start
-
-
     EXPOSE 22
     
-    #I want people to be able to ssh into the container with labuser@IP and the password labuser
 
-    RUN mkdir /home/labuser/.ssh
-    RUN chmod 700 /home/labuser/.ssh
-    RUN chown labuser:labuser /home/labuser/.ssh
 
-    USER labuser
+    #Make a user with credentials labuser:labuser
+    RUN adduser --disabled-password --gecos "" labuser && echo 'labuser:labuser' | chpasswd 
 
-    RUN ssh-keygen -t ed25519 -f /home/labuser/.ssh/id_ed25519 -N ''
+    #Give user permissions to run and create files in /app
+    RUN chown -R labuser:labuser /app
 
-    RUN cat /home/labuser/.ssh/id_ed25519.pub >> /home/labuser/.ssh/authorized_keys
+    RUN chmod 777 /app
 
-    USER root
+    #Make it so that you cannot ssh in as root
+    RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
 
-    RUN chmod 600 /home/labuser/.ssh/authorized_keys
-    RUN chown labuser:labuser /home/labuser/.ssh/authorized_keys
 
-    #Make sure the ssh server doesn't ask for confirmation or password
-
-    RUN echo "Host *\n\tStrictHostKeyChecking no\n\n" > /home/labuser/.ssh/config
-    RUN echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
-
-    #Disable root login
-    RUN echo "PermitRootLogin no" >> /etc/ssh/sshd_config
-    USER root
-
-    CMD [ "/usr/sbin/sshd", "-D" ]
+    ENTRYPOINT service ssh start && tail -f /dev/null
 
     
 

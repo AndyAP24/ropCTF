@@ -1,22 +1,15 @@
 version: '3.7'
 services:
-
   rop:
     container_name: rop
     build:
       context: ../
       dockerfile: Dockerfile
-
-    networks:
-      - ctf
-    
+    security_opt:
+      - seccomp:unconfined
     ports:
       - "2222:22"
     tty: true
     stdin_open: true
 
-
-networks:
-  ctf:
-    external: bridge
   
