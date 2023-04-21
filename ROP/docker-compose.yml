@@ -6,17 +6,17 @@ services:
     build:
       context: ../
       dockerfile: Dockerfile
-    ports:
-      - "1337:1337"
 
     networks:
       - ctf
     
-    entrypoint: /bin/bash
+    ports:
+      - "2222:22"
     tty: true
     stdin_open: true
 
 
 networks:
   ctf:
-    driver: bridge
+    external: bridge
+  
