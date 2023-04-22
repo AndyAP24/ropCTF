@@ -49,5 +49,5 @@ The input file is then converted to raw bytes with the following command:
 
 The raw bytes are then piped into the binary with the following command:
 ```
-./rop < raw.txt
+./rop raw.txt
 ```
